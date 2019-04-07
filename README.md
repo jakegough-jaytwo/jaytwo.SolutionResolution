@@ -19,6 +19,22 @@ PM> Install-Package jaytwo.SolutionResolution
 
 ## Normal Usage
 
+### AspNetCore 2.1 Integration Tests
+
+```cs
+public class WebApplicationFactory
+    : WebApplicationFactory<Startup>
+{
+    protected override void ConfigureWebHost(IWebHostBuilder builder)
+    {
+        builder.UseEnvironment("Development");
+
+        var contentRoot = new SlnFileResolver().ResolvePathRelativeToSln("examples/AspNetCore2_1");
+        builder.UseContentRoot(contentRoot);
+    }
+}
+```
+
 ### AspNetCore 1.1 Integration Tests
 
 ```cs
@@ -41,22 +57,6 @@ public class TestServerFixture
     public void Dispose()
     {
         _server?.Dispose();
-    }
-}
-```
-
-### AspNetCore 2.1 Integration Tests
-
-```cs
-public class WebApplicationFactory
-    : WebApplicationFactory<Startup>
-{
-    protected override void ConfigureWebHost(IWebHostBuilder builder)
-    {
-        builder.UseEnvironment("Development");
-
-        var contentRoot = new SlnFileResolver().ResolvePathRelativeToSln("examples/AspNetCore2_1");
-        builder.UseContentRoot(contentRoot);
     }
 }
 ```
