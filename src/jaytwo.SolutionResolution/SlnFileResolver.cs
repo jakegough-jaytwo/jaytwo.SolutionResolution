@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Linq;
 
@@ -6,10 +6,6 @@ namespace jaytwo.SolutionResolution
 {
     public class SlnFileResolver : ISlnFileResolver
     {
-        public string BasePath { get; set; }
-
-        public string SlnPattern { get; set; }
-        
         public SlnFileResolver()
             : this(null, null)
         {
@@ -20,6 +16,10 @@ namespace jaytwo.SolutionResolution
             BasePath = basePath ?? Directory.GetCurrentDirectory();
             SlnPattern = slnPattern ?? "*.sln";
         }
+
+        public string BasePath { get; set; }
+
+        public string SlnPattern { get; set; }
 
         public FileInfo ResolveSln()
         {
@@ -33,7 +33,8 @@ namespace jaytwo.SolutionResolution
                 {
                     return slnFiles.First();
                 }
-            } while ((directoryCursor = directoryCursor.Parent) != null);
+            }
+            while ((directoryCursor = directoryCursor.Parent) != null);
 
             throw new InvalidOperationException("Could not find solution file!");
         }

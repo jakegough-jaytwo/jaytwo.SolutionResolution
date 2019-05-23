@@ -1,4 +1,4 @@
-﻿namespace jaytwo.SolutionResolution
+namespace jaytwo.SolutionResolution
 {
     public static class SlnFileResolverExtensions
     {

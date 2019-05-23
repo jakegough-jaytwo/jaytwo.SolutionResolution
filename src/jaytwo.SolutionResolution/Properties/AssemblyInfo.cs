@@ -1,3 +1,3 @@
-﻿using System.Runtime.CompilerServices;
+using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("jaytwo.SolutionResolution.Tests")] 
+[assembly: InternalsVisibleTo("jaytwo.SolutionResolution.Tests")]
