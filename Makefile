@@ -3,6 +3,9 @@ DOCKER_TAG?=jaytwo_solutionresolution
 
 default: clean build
 
+deps:
+	dotnet tool install -g dotnet-reportgenerator-globaltool
+
 clean: 
 	find . -name bin | xargs --no-run-if-empty rm -vrf
 	find . -name obj | xargs --no-run-if-empty rm -vrf
@@ -18,9 +21,19 @@ test: unit-test
   
 unit-test: build
 	rm -rf out/testResults
-	dotnet test ./test/jaytwo.SolutionResolution.Tests \
+	rm -rf out/coverage
+	cd ./test/jaytwo.SolutionResolution.Tests; \
+		dotnet test \
 		--results-directory ../../out/testResults \
 		--logger "trx;LogFileName=jaytwo.SolutionResolution.Tests.trx"
+	reportgenerator \
+		-reports:./out/coverage/**/coverage.cobertura.xml \
+		-targetdir:./out/coverage/ \
+		-reportTypes:Cobertura
+	reportgenerator \
+		-reports:./out/coverage/**/coverage.cobertura.xml \
+		-targetdir:./out/coverage/html \
+		-reportTypes:Html
 
 pack:
 	rm -rf out/packed
@@ -35,9 +48,12 @@ publish:
 	cd ./src/jaytwo.SolutionResolution; \
 		dotnet publish -o ../../out/published
 
+DOCKER_BASE_TAG?=${DOCKER_TAG}__base
 DOCKER_BUILDER_TAG?=${DOCKER_TAG}__builder
 DOCKER_BUILDER_CONTAINER?=${DOCKER_BUILDER_TAG}
 docker-builder:
+	# building the base image to force caching those layers in an otherwise discarded stage of the multistage dockerfile
+	docker build -t ${DOCKER_BASE_TAG} . --target base --pull
 	docker build -t ${DOCKER_BUILDER_TAG} . --target builder --pull
 
 docker: docker-builder
@@ -67,5 +83,6 @@ docker-pack-beta: docker-builder docker-pack-beta-only
 
 docker-clean:
 	docker rm ${DOCKER_BUILDER_CONTAINER} || echo "Container not found: ${DOCKER_BUILDER_CONTAINER}"
+	# not removing image DOCKER_BASE_TAG since we want the layer cache to stick around (hopefully they will be cleaned up on the scheduled job)
 	docker rmi ${DOCKER_BUILDER_TAG} || echo "Image not found: ${DOCKER_BUILDER_TAG}"
 	docker rmi ${DOCKER_TAG} || echo "Image not found: ${DOCKER_TAG}"
