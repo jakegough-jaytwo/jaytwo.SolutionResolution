@@ -1,6 +1,18 @@
 # jaytwo.SolutionResolution
 
-[![NuGet version (jaytwo.SolutionResolution)](https://img.shields.io/nuget/v/jaytwo.SolutionResolution.svg?style=flat-square)](https://www.nuget.org/packages/jaytwo.SolutionResolution/)
+<p align="center">
+  <a href="https://jenkins.jaytwo.com/job/jaytwo.SolutionResolution/job/master/" alt="Build Status (master)">
+    <img src="https://jenkins.jaytwo.com/buildStatus/icon?job=jaytwo.SolutionResolution%2Fmaster&subject=build%20(master)" /></a>
+  <a href="https://jenkins.jaytwo.com/job/jaytwo.SolutionResolution/job/develop/" alt="Build Status (develop)">
+    <img src="https://jenkins.jaytwo.com/buildStatus/icon?job=jaytwo.SolutionResolution%2Fdevelop&subject=build%20(develop)" /></a>
+</p>
+
+<p align="center">
+  <a href="https://www.nuget.org/packages/jaytwo.SolutionResolution/" alt="NuGet Package jaytwo.SolutionResolution">
+    <img src="https://img.shields.io/nuget/v/jaytwo.SolutionResolution.svg?logo=nuget&label=jaytwo.SolutionResolution" /></a>
+  <a href="https://www.nuget.org/packages/jaytwo.SolutionResolution/" alt="NuGet Package jaytwo.SolutionResolution (beta)">
+    <img src="https://img.shields.io/nuget/vpre/jaytwo.SolutionResolution.svg?logo=nuget&label=jaytwo.SolutionResolution" /></a>
+</p>
 
 When I'm setting up integration tests in AspNetCore, the content root is all messed up because `Directory.GetCurrentDirectory()` 
 resolves to something like `./test/MySolution.Web.Tests/bin/Debug/netcoreapp2.1/`, and the most reliable way to get it back to the
