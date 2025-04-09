@@ -11,7 +11,7 @@ namespace jaytwo.SolutionResolution
         {
         }
 
-        public SlnFileResolver(string basePath, string slnPattern)
+        public SlnFileResolver(string? basePath, string? slnPattern)
         {
             BasePath = basePath ?? Directory.GetCurrentDirectory();
             SlnPattern = slnPattern ?? "*.sln";
@@ -39,7 +39,7 @@ namespace jaytwo.SolutionResolution
             throw new InvalidOperationException("Could not find solution file!");
         }
 
-        public DirectoryInfo ResolveSlnDirectory() => ResolveSln().Directory;
+        public DirectoryInfo ResolveSlnDirectory() => ResolveSln().Directory ?? throw new Exception("Solution file is not in a direcotry!");
 
         public string ResolvePathRelativeToSln(string path)
         {
