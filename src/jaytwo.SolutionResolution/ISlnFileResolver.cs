@@ -1,14 +1,13 @@
 using System;
 using System.IO;
 
-namespace jaytwo.SolutionResolution
+namespace jaytwo.SolutionResolution;
+
+public interface ISlnFileResolver
 {
-    public interface ISlnFileResolver
-    {
-        FileInfo ResolveSln();
+    FileInfo ResolveSln();
 
-        DirectoryInfo ResolveSlnDirectory();
+    DirectoryInfo ResolveSlnDirectory();
 
-        string ResolvePathRelativeToSln(string path);
-    }
+    string ResolvePathRelativeToSln(string path);
 }
