@@ -8,6 +8,8 @@ public class SlnFileResolver : ISlnFileResolver
 {
     private const string DefaultSlnPattern = "*.sln";
 
+    private static Lazy<SlnFileResolver> _lazyDefault = new Lazy<SlnFileResolver>(() => new SlnFileResolver());
+
     public SlnFileResolver()
         : this(null, null)
     {
@@ -19,9 +21,11 @@ public class SlnFileResolver : ISlnFileResolver
         SlnPattern = slnPattern ?? DefaultSlnPattern;
     }
 
-    public string BasePath { get; set; }
+    public static SlnFileResolver Default => _lazyDefault.Value;
 
-    public string SlnPattern { get; set; }
+    public string BasePath { get; }
+
+    public string SlnPattern { get; }
 
     public FileInfo ResolveSln()
     {

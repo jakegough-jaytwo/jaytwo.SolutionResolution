@@ -18,7 +18,7 @@ public class SlnFileResolverTests
     public void ResolvePathRelativeToSln_works(string basePath, string relativePath)
     {
         // arrange
-        var resolver = new SlnFileResolver().WithBasePath(basePath);
+        var resolver = new SlnFileResolver(basePath);
 
         // act
         var fullPath = resolver.ResolvePathRelativeToSln(relativePath);
@@ -36,7 +36,7 @@ public class SlnFileResolverTests
         var slnPattern = "one.sln";
         var basePath = "TestData/one/a/b";
         var relativePath = "a/foo.txt";
-        var resolver = new SlnFileResolver().WithBasePath(basePath).WithSlnPattern(slnPattern);
+        var resolver = new SlnFileResolver(basePath, slnPattern);
 
         // act
         var fullPath = resolver.ResolvePathRelativeToSln(relativePath);
