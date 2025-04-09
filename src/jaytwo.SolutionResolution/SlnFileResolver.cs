@@ -6,15 +6,17 @@ namespace jaytwo.SolutionResolution;
 
 public class SlnFileResolver : ISlnFileResolver
 {
+    private const string DefaultSlnPattern = "*.sln";
+
     public SlnFileResolver()
         : this(null, null)
     {
     }
 
-    public SlnFileResolver(string? basePath, string? slnPattern)
+    public SlnFileResolver(string? basePath, string? slnPattern = DefaultSlnPattern)
     {
         BasePath = basePath ?? Directory.GetCurrentDirectory();
-        SlnPattern = slnPattern ?? "*.sln";
+        SlnPattern = slnPattern ?? DefaultSlnPattern;
     }
 
     public string BasePath { get; set; }
