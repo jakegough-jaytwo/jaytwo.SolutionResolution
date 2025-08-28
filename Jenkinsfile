@@ -1,4 +1,4 @@
 library 'JenkinsBuilderLibrary'
 
-helper.loadNuGetProjectDefaults('jaytwo.SolutionResolution')
-helper.runNuGetProject()
+nugetProject.build(
+    gitHubRepository: 'jaytwo.SolutionResolution')
