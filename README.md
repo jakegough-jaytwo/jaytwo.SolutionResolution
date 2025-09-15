@@ -41,7 +41,7 @@ public class WebApplicationFactory
     {
         builder.UseEnvironment("Development");
 
-        var contentRoot = new SlnFileResolver().ResolvePathRelativeToSln("examples/AspNetCore2_1");
+        var contentRoot = SlnFileResolver.Default.ResolvePathRelativeToSln("examples/AspNetCore2_1");
         builder.UseContentRoot(contentRoot);
     }
 }
@@ -58,7 +58,7 @@ public class TestServerFixture
 
     public TestServerFixture()
     {
-        var contentRoot = new SlnFileResolver().ResolvePathRelativeToSln("examples/AspNetCore1_1");
+        var contentRoot = SlnFileResolver.Default.ResolvePathRelativeToSln("examples/AspNetCore1_1");
 
         _server = new TestServer(new WebHostBuilder()
             .UseEnvironment("Development")
